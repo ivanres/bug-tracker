@@ -136,9 +136,18 @@ The project includes Jenkins pipelines located in the `jenkins/` folder for cont
 To start Jenkins locally using Docker Compose:
 
 ```bash
+# video steps
+cd jenkins
+docker build -t my-jenkins .
+docker compose up -d
+```
+
+```bash
 cd jenkins
 docker-compose up --build
 ```
+
+
 
 Jenkins will then be available at [http://localhost:9000](http://localhost:9000).
 
