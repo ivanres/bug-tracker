@@ -81,6 +81,12 @@ cd bugtracker-backend
 go test ./... -v
 ```
 
+#### Backend Coverage
+```bash
+go test -coverprofile=coverage.out -covermode=atomic ./...
+go tool cover -html=coverage.out -o coverage.html
+```
+
 ### Frontend Unit Tests
 ```bash
 cd bugtracker-frontend
