@@ -30,10 +30,10 @@ pipeline {
                         always {
                             junit 'bugtracker-backend/test-results.xml'
                             publishHTML target: [
-                        reportDir: 'bugtracker-backend/reports',
-                        reportFiles: 'coverage.html',
-                        reportName: 'Backend Coverage Report'
-                    ]
+                                reportDir: 'bugtracker-backend/reports',
+                                reportFiles: 'coverage.html',
+                                reportName: 'Backend Coverage Report'
+                            ]
                         }
                     }
                 }
@@ -59,10 +59,10 @@ pipeline {
                         always {
                             junit 'bugtracker-frontend/test-results.xml'
                             publishHTML target: [
-                        reportDir: 'bugtracker-frontend/reports/coverage',
-                        reportFiles: 'index.html',
-                        reportName: 'Frontend Coverage Report'
-                    ]
+                                reportDir: 'bugtracker-frontend/reports/coverage',
+                                reportFiles: 'index.html',
+                                reportName: 'Frontend Coverage Report'
+                            ]
                         }
                     }
                 }
@@ -106,6 +106,22 @@ pipeline {
                         reportFiles: 'index.html',
                         reportName: 'Playwright API Test Report'
                     ]
+                }
+            }
+        }
+
+        stage('E2E Tests'){
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/playwright:v1.50.0-jammy'
+                    reuseNode true
+                    args '-u 0 --network=host' // Explicitly run as root
+                }
+            }
+            steps {
+                dir('tests-e2e') {
+                    sh 'npm ci'
+                    sh 'npx playwright test'
                 }
             }
         }
